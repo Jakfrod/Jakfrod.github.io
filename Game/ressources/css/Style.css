@@ -1,0 +1,114 @@
+@import url(https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap);
+input[type=text] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=button] {
+    width: 100%;
+    background-color: #00ff00;
+    color: white;
+    border: none;
+    font-size: 30pt;
+    font-family: 'Permanent Marker', arial;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+input[type=button]:hover {
+    background-color: #00c500;
+}
+
+body {
+    background-image: url("../images/background.png");
+    background-repeat: repeat;
+}
+
+h1 {
+    font-family: 'Permanent Marker', arial;
+    color: #0f0;
+    font-size: 60pt;
+    text-align: center
+}
+
+h2 {
+    font-family: 'Permanent Marker', arial;
+    color: #0f0;
+    font-size: 40pt;
+    text-align: center
+}
+
+.countryImg {
+    width: 250pt;
+    height: 150pt;
+    object-fit: cover;
+}
+
+h3 {
+    font-family: 'Permanent Marker', arial;
+    color: #fff;
+    font-size: 36pt;
+    text-align: center
+}
+
+p {
+    font-family: 'Permanent Marker', arial;
+    color: #fff;
+}
+
+.flagranks {
+    max-width: 50px;
+}
+
+#ranksTable {
+    font-family: 'Permanent Marker', arial;
+    color: #fff;
+    border: "2px solid";
+    width: 100%;
+}
+
+#canvas {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.canvas {
+    background-color: aqua;
+    width: 100px;
+    height: 100px;
+}
+
+#dropZone {
+    background-color: rgb(255, 0, 0);
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: black solid 2px;
+}
+
+section {
+    display: flexbox;
+    justify-items: center;
+    background-color: #555;
+    width: 40%;
+    margin: auto;
+    text-align: center;
+}
+
+#sectionGame {
+    width: 90vw;
+    height: 90Vh;
+}
+
+#gameCanvas {
+    background-color: black;
+    height: auto;
+    min-width: 80%;
+}
