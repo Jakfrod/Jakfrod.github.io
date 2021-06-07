@@ -181,17 +181,29 @@ document.addEventListener('DOMContentLoaded', function() {
         delete keysDown[e.keyCode];
     }, false);
 
+    const attackAudio = new Audio("ressources/sounds/PlayerFight.wav");
+    const monsterDeath = new Audio("ressources/sounds/MonsterDeath.wav");
+    const monsterFight = new Audio("ressources/sounds/MonsterFight.wav");
+    const monsterHurt = new Audio("ressources/sounds/MonsterHurt.wav");
+    const playerDeath = new Audio("ressources/sounds/PlayerDeath.wav");
+    const playerHurt = new Audio("ressources/sounds/PlayerHurt.wav");
+    const roomComplete = new Audio("ressources/sounds/RoomComplet.wav");
+    const roomStart = new Audio("ressources/sounds/RoomStart.wav");
     // Update game objects
     var update = function(modifier) {
         if (hero.life === 0) {
             if (changeSprites(hero, spritesHero.die))
                 hero.isDead = true;
+            playerDeath.play();
             return;
         }
 
         if (hero.isTakingDamage) {
-            if (!changeSprites(hero, spritesHero.takeHit))
+
+            if (!changeSprites(hero, spritesHero.takeHit)) {
+                playerHurt.play();
                 hero.isTakingDamage = false;
+            }
             return;
         }
 
@@ -208,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else if (32 in keysDown) {
             changeSprites(hero, spritesHero.waitAttack);
+            attackAudio.play();
         } else
         if (!hero.isAttacking) {
             if (38 in keysDown || 40 in keysDown || 37 in keysDown || 39 in keysDown) {
@@ -242,21 +255,27 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     var updateMonster = function(modifier) {
         if (monster.life == 0) {
-            if (changeSprites(monster, spritesMonster.die))
+            if (changeSprites(monster, spritesMonster.die)) {
+                monsterDeath.play();
                 monster.isDead = true;
+            }
             return;
         }
 
         if (monster.isTakingDamage) {
-            if (changeSprites(monster, spritesMonster.takeHit))
+            if (changeSprites(monster, spritesMonster.takeHit)) {
+                monsterHurt.play();
                 monster.isTakingDamage = false;
+            }
             return;
         }
         let distance = Math.pow(Math.pow(monster.x - hero.x, 2) + Math.pow(monster.y - hero.y, 2), 0.5);
-        console.log(monster.cooldown);
-        console.log(distance);
+
         if (((20 >= distance && monster.cooldown <= 0) || monster.isAttacking)) {
             monster.isAttacking = !changeSprites(monster, spritesMonster.attack);
+            if (!monster.isAttacking) {
+                monsterFight.play();
+            }
             if (distance <= 20) {
                 if (!monster.isAttacking) {
                     hero.isTakingDamage = true;
@@ -317,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Render the clean scene
     var cleanRoom = function(reward) {
+        roomComplete.play();
         context.clearRect(0, 0, canvas.width, canvas.height);
         const sizeText = 30;
         context.font = `${sizeText}px Permanent Marker`;
@@ -335,6 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
     var resetRoom = function() {
+            roomStart.play();
             //Reset position of hero
             hero.x = canvas.width / 4 - hero.width / 2; // Initialize x position of the hero
             hero.y = canvas.height / 2 - hero.height / 2; //Initialize y position of the hero
